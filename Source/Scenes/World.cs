@@ -278,7 +278,7 @@ public class World : Scene
 			if (player != null && message.UserID != Game.Instance.Id)
 			{
 				Console.WriteLine(message.ToString());
-				var gran = new Granny();
+				var climber = new Climbers();
 				if (Players.ContainsKey(message.UserID))
 				{
 					Destroy(Players[message.UserID]);
@@ -287,9 +287,9 @@ public class World : Scene
 
 				if (message.CurrentMap == Game.Instance.currentMap)
 				{
-					gran.Position = message.PosVec;
-					Players[message.UserID] = gran;
-					Add(gran);
+					climber.Position = message.PosVec;
+					Players[message.UserID] = climber;
+					Add(climber);
 				}
 			}
 		}

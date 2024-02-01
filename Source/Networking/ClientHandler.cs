@@ -22,6 +22,7 @@ public static class ClientHandler
             udpClient.Connect(ip, port);
             IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
             Thread thread = new Thread(() => AwaitMessages(ref udpClient, remoteIpEndPoint, ref changed ));
+            thread.IsBackground = true;
             thread.Start();
         }
         catch (Exception e)
