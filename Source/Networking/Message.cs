@@ -9,6 +9,7 @@ public class Message
     private String userID;
     private string extra;
     private Vec3 posVec;
+    private string currentMap;
 
     public String Position
     {
@@ -20,6 +21,12 @@ public class Message
     {
         get => posVec;
         set => posVec = value;
+    }
+    
+    public String CurrentMap
+    {
+        get => currentMap;
+        set => currentMap = value;
     }
 
     public String UserID
@@ -37,16 +44,17 @@ public class Message
     }
 
 
-    public Message( String userID, String position)
+    public Message( String userID, String position, String currentMap)
     {
         this.userID = userID;
         this.position = position;
+        this.currentMap = currentMap;
     }
 
 
     public override string ToString()
     {
-        return $@"{{ ""userID"": ""{userID}"",""position"": ""{position}"" }}";
+        return $@"{{ ""userID"": ""{userID}"",""position"": ""{position}"",""currentMap"": ""{currentMap}"" }}";
     }
 
     public bool Equals(Message message)

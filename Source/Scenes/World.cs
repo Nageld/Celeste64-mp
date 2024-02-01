@@ -69,7 +69,7 @@ public class World : Scene
 
 		var stopwatch = Stopwatch.StartNew();
 		var map = Assets.Maps[entry.Map];
-
+		Game.Instance.currentMap = map.Name;
 		Camera.NearPlane = 20;
 		Camera.FarPlane = 800;
 		Camera.FOVMultiplier = 1;
@@ -269,9 +269,9 @@ public class World : Scene
 
 	public override void Update()
 	{
+		// TODO Clean up
 		if (Game.Instance.Changes.Count > 0)
 		{
-			
 			Message message = (Message)Game.Instance.Changes.Pop();
 			var player = Get<Player>();
 			
@@ -282,15 +282,15 @@ public class World : Scene
 				if (Players.ContainsKey(message.UserID))
 				{
 					Destroy(Players[message.UserID]);
-					gran.Position = message.PosVec;
-					Players[message.UserID] = gran;
+					Players.Remove(message.UserID);
 				}
-				else
+
+				if (message.CurrentMap == Game.Instance.currentMap)
 				{
 					gran.Position = message.PosVec;
 					Players[message.UserID] = gran;
+					Add(gran);
 				}
-				Add(gran);
 			}
 		}
 
