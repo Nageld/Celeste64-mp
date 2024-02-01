@@ -188,6 +188,8 @@ public class Player : Actor, IHaveModels, IHaveSprites, IRidePlatforms, ICastPoi
 		&& stateMachine.State != States.Cassette
 		&& stateMachine.State != States.Dead;
 
+	public String Id = Guid.NewGuid().ToString();
+	public Vec3 lastPos = Vec3.Zero;
 	public Player()
 	{
 		PointShadowAlpha = 1.0f;
@@ -262,6 +264,13 @@ public class Player : Actor, IHaveModels, IHaveSprites, IRidePlatforms, ICastPoi
 
 	public override void Update()
 	{
+		if (Position != lastPos)
+		{
+			Message message = new Message(Id, Position.ToString());
+			ClientHandler.SendToServer(message);
+			lastPos = Position;
+		}
+		
 		// only update camera if not dead
 		if (stateMachine.State != States.Respawn && stateMachine.State != States.Dead && 
 			stateMachine.State != States.StrawbReveal && stateMachine.State != States.Cassette)

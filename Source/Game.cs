@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace Celeste64;
@@ -34,7 +35,6 @@ public class Game : Module
 		Perform,
 		FadeIn
 	}
-
 	public const string GamePath = "Celeste64";
 	public const string GameTitle = "Celeste 64: Fragments of the Mountain";
 	public const int Width = 640;
@@ -61,6 +61,7 @@ public class Game : Module
 
 	public AudioHandle Ambience;
 	public AudioHandle Music;
+	public Stack Changes = new Stack();
 
 	public Game()
 	{
@@ -77,6 +78,7 @@ public class Game : Module
 		App.Title = GameTitle;
 		Audio.Init();
 		Controls.Load();
+		ClientHandler.ClientStart("localhost", 25565,ref Changes);
 
 		scenes.Push(new Startup());
 	}

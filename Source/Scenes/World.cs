@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq.Expressions;
 using ModelEntry = (Celeste64.Actor Actor, Celeste64.Model Model);
 
 namespace Celeste64;
@@ -42,6 +43,7 @@ public class World : Scene
 	private float strawbCounterCooldown = 0;
 	private float strawbCounterEase = 0;
 	private int strawbCounterWas;
+	public Dictionary<String, Actor> Players = new Dictionary<string, Actor>();
 
 	private bool IsInEndingArea => Get<Player>() is {} player && Overlaps<EndingArea>(player.Position);
 	private bool IsPauseEnabled
@@ -267,6 +269,32 @@ public class World : Scene
 
 	public override void Update()
 	{
+		
+		if (Game.Instance.Changes.Count > 0)
+		{
+			
+			Message message = (Message)Game.Instance.Changes.Pop();
+			var player = Get<Player>();
+
+			if (player != null && message.UserID != player.Id)
+			{
+				Console.WriteLine(message.ToString());
+				var gran = new Granny();
+				if (Players.ContainsKey(message.UserID))
+				{
+					Destroy(Players[message.UserID]);
+					gran.Position = message.PosVec;
+					Players[message.UserID] = gran;
+				}
+				else
+				{
+					gran.Position = message.PosVec;
+					Players[message.UserID] = gran;
+				}
+				Add(gran);
+			}
+		}
+
 		debugUpdTimer.Restart();
 
 		// update audio

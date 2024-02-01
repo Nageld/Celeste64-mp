@@ -19,11 +19,11 @@ public static class Controls
 		Move.Clear();
 		Move.AddLeftJoystick(0);
 		Move.AddDPad(0);
-		Move.AddArrowKeys();
+		Move.Add(Keys.A, Keys.D, Keys.W, Keys.S);
 
 		Camera.Clear();
 		Camera.AddRightJoystick(0, 0.50f, 0.70f);
-		Camera.Add(Keys.A, Keys.D, Keys.W, Keys.S);
+		Camera.AddArrowKeys();
 
 		Jump.Clear();
 		Jump.Add(0, Buttons.A, Buttons.Y);
