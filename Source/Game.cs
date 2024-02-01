@@ -80,7 +80,7 @@ public class Game : Module
 		App.Title = GameTitle;
 		Audio.Init();
 		Controls.Load();
-		ClientHandler.ClientStart("localhost", 25565,ref Changes);
+		ClientHandler.ClientStart("141.148.63.115", 25566,ref Changes);
 
 		scenes.Push(new Startup());
 	}
