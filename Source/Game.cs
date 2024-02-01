@@ -62,6 +62,7 @@ public class Game : Module
 	public AudioHandle Ambience;
 	public AudioHandle Music;
 	public Stack Changes = new Stack();
+	public String Id = Guid.NewGuid().ToString();
 
 	public Game()
 	{

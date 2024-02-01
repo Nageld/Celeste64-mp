@@ -188,7 +188,6 @@ public class Player : Actor, IHaveModels, IHaveSprites, IRidePlatforms, ICastPoi
 		&& stateMachine.State != States.Cassette
 		&& stateMachine.State != States.Dead;
 
-	public String Id = Guid.NewGuid().ToString();
 	public Vec3 lastPos = Vec3.Zero;
 	public Player()
 	{
@@ -266,7 +265,7 @@ public class Player : Actor, IHaveModels, IHaveSprites, IRidePlatforms, ICastPoi
 	{
 		if (Position != lastPos)
 		{
-			Message message = new Message(Id, Position.ToString());
+			Message message = new Message(Game.Instance.Id, Position.ToString());
 			ClientHandler.SendToServer(message);
 			lastPos = Position;
 		}

@@ -269,14 +269,13 @@ public class World : Scene
 
 	public override void Update()
 	{
-		
 		if (Game.Instance.Changes.Count > 0)
 		{
 			
 			Message message = (Message)Game.Instance.Changes.Pop();
 			var player = Get<Player>();
-
-			if (player != null && message.UserID != player.Id)
+			
+			if (player != null && message.UserID != Game.Instance.Id)
 			{
 				Console.WriteLine(message.ToString());
 				var gran = new Granny();
