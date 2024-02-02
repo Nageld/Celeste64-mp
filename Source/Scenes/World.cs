@@ -283,13 +283,16 @@ public class World : Scene
 				var climber = new Climbers();
 				if (Players.ContainsKey(message.UserID))
 				{
-						Destroy(Players[message.UserID]);
-						Players.Remove(message.UserID);
 						if (Player2Packet.ContainsKey(message.UserID))
 						{
 							if (Player2Packet[message.UserID] > message.PacketNum)
 							{
 								validMove = false;
+							}
+							else
+							{
+								Destroy(Players[message.UserID]);
+								Players.Remove(message.UserID);
 							}
 						}
 				}

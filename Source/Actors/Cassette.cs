@@ -71,6 +71,7 @@ public class Cassette : Actor, IHaveModels, IPickup, IHaveSprites, ICastPointSha
 
 	public void PlayerExit()
 	{
+		Game.Instance.currentMap = "1";
 		tWiggle = 1.0f;
 	}
 
