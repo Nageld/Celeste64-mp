@@ -10,6 +10,7 @@ public class Message
     private string extra;
     private Vec3 posVec;
     private string currentMap;
+    private Int64 packetNum;
 
     public String Position
     {
@@ -34,7 +35,12 @@ public class Message
         get => userID;
         set => userID = value;
     }
-
+    
+    public Int64 PacketNum
+    {
+        get => packetNum;
+        set => packetNum = value;
+    }
 
 
     public string Extra
@@ -44,17 +50,18 @@ public class Message
     }
 
 
-    public Message( String userID, String position, String currentMap)
+    public Message( String userID, String position, String currentMap, Int64 packet)
     {
         this.userID = userID;
         this.position = position;
         this.currentMap = currentMap;
+        this.packetNum = packet;
     }
 
 
     public override string ToString()
     {
-        return $@"{{ ""userID"": ""{userID}"",""position"": ""{position}"",""currentMap"": ""{currentMap}"" }}";
+        return $@"{{ ""userID"": ""{userID}"",""position"": ""{position}"",""currentMap"": ""{currentMap}"",""packetNum"": ""{packetNum}"" }}";
     }
 
     public bool Equals(Message message)

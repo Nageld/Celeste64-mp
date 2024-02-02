@@ -265,8 +265,9 @@ public class Player : Actor, IHaveModels, IHaveSprites, IRidePlatforms, ICastPoi
 	{
 		if (Position != lastPos)
 		{
-			Message message = new Message(Game.Instance.Id, Position.ToString(), Game.Instance.currentMap);
+			Message message = new Message(Game.Instance.Id, Position.ToString(), Game.Instance.currentMap, Game.Instance.packetNum);
 			ClientHandler.SendToServer(message);
+			Game.Instance.packetNum += 1;
 			lastPos = Position;
 		}
 		

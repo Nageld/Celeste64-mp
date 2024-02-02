@@ -44,6 +44,8 @@ public class World : Scene
 	private float strawbCounterEase = 0;
 	private int strawbCounterWas;
 	public Dictionary<String, Actor> Players = new Dictionary<string, Actor>();
+	public Dictionary<String, Int64> Player2Packet = new Dictionary<string, Int64>();
+
 
 	private bool IsInEndingArea => Get<Player>() is {} player && Overlaps<EndingArea>(player.Position);
 	private bool IsPauseEnabled
@@ -274,22 +276,30 @@ public class World : Scene
 		{
 			Message message = (Message)Game.Instance.Changes.Pop();
 			var player = Get<Player>();
-			
+			var validMove = true;
 			if (player != null && message.UserID != Game.Instance.Id)
 			{
 				Console.WriteLine(message.ToString());
 				var climber = new Climbers();
 				if (Players.ContainsKey(message.UserID))
 				{
-					Destroy(Players[message.UserID]);
-					Players.Remove(message.UserID);
+						Destroy(Players[message.UserID]);
+						Players.Remove(message.UserID);
+						if (Player2Packet.ContainsKey(message.UserID))
+						{
+							if (Player2Packet[message.UserID] > message.PacketNum)
+							{
+								validMove = false;
+							}
+						}
 				}
 
-				if (message.CurrentMap == Game.Instance.currentMap)
+				if (message.CurrentMap == Game.Instance.currentMap && validMove)
 				{
 					climber.Position = message.PosVec;
 					Players[message.UserID] = climber;
 					Add(climber);
+					Player2Packet[message.UserID] = message.PacketNum;
 				}
 			}
 		}

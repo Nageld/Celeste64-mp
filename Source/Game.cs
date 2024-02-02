@@ -64,7 +64,9 @@ public class Game : Module
 	public Stack Changes = new Stack();
 	public String Id = Guid.NewGuid().ToString();
 	public String currentMap = "";
-
+	public Int64 packetNum = 0;
+	
+	
 	public Game()
 	{
 		// If this isn't stored, the delegate will get GC'd and everything will crash :)
